@@ -5,7 +5,7 @@ import "./App.css";
 import Footer from "@layouts/Footer";
 import Home from "@pages/Home";
 import Login from "@pages/Login";
-import Register from "@pages/Register";
+import Register2 from "@pages/Register2";
 import Contact from "@pages/Contact";
 
 const MyContext = React.createContext(null);
@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route path={"/"} element={<Home />} />
           <Route path={"/login"} element={<Login />} />
-          <Route path={"/register"} element={<Register />} />
+          <Route path={"/register"} element={<Register2 />} />
           <Route path={"/contact"} element={<Contact />} />
         </Routes>
       </Router>

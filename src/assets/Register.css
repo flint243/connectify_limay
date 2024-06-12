@@ -40,7 +40,8 @@ form input{
     width:  100%;
     height: 65px;
     border-radius: 10px;
-    border: none;;
+    border: none;
+    padding: 5px;
 }
 form .radio{
     height: 30px;
@@ -50,13 +51,32 @@ form .radio{
     width: 100%;
     display: inline-block;
     padding: 10px;
-    background-color: red;
 }
 #uidnote{
+    position: relative;
+    background-color: black;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius:10px;
+    text-align: start;
+    font-size: small;
     display: none;
 }
 #pwdnote{
-    display: none;
+    background-color: black;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius:10px;
+    text-align: start;
+    font-size: small;
+}
+#confirmnote{
+    background-color: black;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius:10px;
+    text-align: start;
+    font-size: small;
 }
 
 .genreGroup{
@@ -68,5 +88,64 @@ form .radio{
     width: 100%;
     display: inline-block;
     padding: 10px;
-    background-color: red;
 }
+
+#btnGroup{
+    text-align: center;
+}
+
+.instruction{
+    color: red;
+    font-size: 0.5rem;
+    margin-top: 5px;
+}
+.offscreen{
+    z-index: 1;
+}
+.emailFocus{
+    visibility: visible;
+}
+.validName{
+    color: green;
+}
+.userFocus{
+    visibility: visible;
+}
+.validLastName{
+    color: green;
+}
+.validEmail{
+    color: green;
+}
+.validPassword{
+    color: green;
+}
+.validConfirmPassword{
+    color: green;
+}
+
+.valid{
+    margin-left: 2px;
+    color: green;
+    display: inline;
+    visibility: visible;
+}
+
+.hide {
+    display: none;
+}
+.invalid {
+    margin-left: 2px;
+    color: red;
+    display: inline;
+}
+span {
+    color: red;
+}
+.true{
+    visibility: visible;
+}
+.false{
+    visibility: hidden;
+}
+

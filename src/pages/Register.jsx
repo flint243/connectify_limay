@@ -5,6 +5,12 @@ import Header from '@layouts/Header'
 import { Link } from 'react-router-dom';
 import '@assets/Register.css'
 import '@assets/recups/contact/fd_contact.jpg'
+import app from '../firebaseConfig'
+import { getDatabase, ref, set, push } from "firebase/database"
+import { error } from "jquery"
+
+
+
 
 const element = <FontAwesomeIcon icon={faCoffee} />
 
@@ -13,18 +19,29 @@ const element = <FontAwesomeIcon icon={faCoffee} />
 const USER_REGEX  = /^[a-zA][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-zA])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-const Register = () => {
+const Register = async () => {
+
+    
+        
     const userRef = useRef()
     const errRef = useRef()
 
     const [user, setUser] = useState('')
+    const [user2, setUser2] = useState('')
+
     const [validName, setValidName] = useState(false)
     const [validLastName, setValidLastName] = useState(false)
+
     const [userFocus, setUserFocus] = useState(false)
+    const [user2Focus, setUser2Focus] = useState(false)
 
     const [email, setEmail] = useState('')
     const [validEmail, setValidEmail] = useState(false)
     const [emailFocus, setEmailFocus] = useState(false)
+
+    const [genre, setGenre] = useState('')
+    const [validGenre, setValidGenre] = useState(false)
+    const [genreFocus, setGenreFocus] = useState(false)
 
     const [pwd, setPwd] = useState('')
     const [validPwd, setValidPwd] = useState(false)
@@ -37,6 +54,7 @@ const Register = () => {
     const [errMsg, setErrMsg] = useState('')
     const [success, setSuccess] = useState(false)
 
+
     useEffect(() =>{
         userRef.current.focus()
     }, [])
@@ -46,8 +64,14 @@ const Register = () => {
         console.log(result)
         console.log(user)
         setValidName(result)
-        setValidLastName(result)
     }, [user])
+
+    useEffect(() =>{
+        const result = USER_REGEX.test(user2)
+        console.log(result)
+        console.log(user2)
+        setValidLastName(result)
+    }, [user2])
 
     useEffect(() =>{
         const result = USER_REGEX.test(email)
@@ -55,6 +79,11 @@ const Register = () => {
         console.log(email)
         setValidEmail(result)
     }, [email])
+
+    useEffect(() => {
+        console.log(genre)
+        setValidGenre('')
+    }, [genre])
 
     useEffect(() =>{
         const result = PWD_REGEX.test(pwd)
@@ -74,6 +103,7 @@ const Register = () => {
         <Header/>
         <Link to='/Home'></Link>
         <Link to='/Login'></Link>
+
         <div className="inscriptionGroup">
             <img src="src/assets/recups/inscription/pexels-budgeron-bach-5158233.jpg" alt="" width="50%"/>
 
@@ -126,24 +156,24 @@ const Register = () => {
                 </label><br />
                 <input 
                 type="text" 
-                id="username"
+                id="userlastname"
                 ref={userRef}
                 autoComplete="off"
-                onChange={(e) => setUser(e.target.value)}
+                onChange={(e) => setUser2(e.target.value)}
                 required 
                 aria-invalid={validLastName ? "false" : "true"}
                 aria-describedby="uidnote" 
-                onFocus={() => setUserFocus(true)}
-                onBlur={() => setUserFocus(false)}
+                onFocus={() => setUser2Focus(true)}
+                onBlur={() => setUser2Focus(false)}
                 />
-                <p id="uidnote" className={userFocus && user && 
+                <p id="uidnote" className={user2Focus && user2 && 
                 !validLastName ? "instruction" : "offscreen"}>
                         <FontAwesomeIcon icon={faInfoCircle} />
                         4 to 24 characters.<br/>
                         Must begin with a letter.<br/>
                         Letters, numbers, underscores, hyphens allowed.
                 </p>
-                </div><br /><br />
+                </div><br />
 
                 <label htmlFor="email">
                     Email
@@ -155,7 +185,7 @@ const Register = () => {
                     </span>
                 </label><br />
                 <input 
-                type="text" 
+                type="email" 
                 id="email"
                 autoComplete="off"
                 onChange={(e) => setEmail(e.target.value)}
@@ -175,9 +205,9 @@ const Register = () => {
 
                 <div className="genreGroup">
                     Genre:
-                    <input type="radio" className="radio" name="homme" />
+                    <input type="radio" className="radio" name="genre" />
                     <label htmlFor="monsieur">Homme</label>
-                    <input type="radio" className="radio" name="madame" />
+                    <input type="radio" className="radio" name="genre" />
                     <label htmlFor="femme">Femme</label>
                 </div>
 
@@ -223,8 +253,8 @@ const Register = () => {
                 onChange={(e) => setMatchPwd(e.target.value)}
                 required aria-invalid={validMatch ? "false" : "true"}
                 aria-describedby="confirmnote" 
-                onFocus={() => setPwdFocus(true)}
-                onBlur={() => setPwdFocus(false)}
+                onFocus={() => setMatchFocus(true)}
+                onBlur={() => setMatchFocus(false)}
                 />
                 <p id="confirmnote" className={matchFocus && !validMatch ?
                     "instructions" : "offscreen"}>
