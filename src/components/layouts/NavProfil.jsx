@@ -14,6 +14,9 @@ const NavProfil = () => {
             <ul>
                 <Link to='/profil'><li>Profil</li></Link>
                 <Link to='/Contact'><li>Contact</li></Link>
+
+                <Link to='/deconnexion'><li>Deconnexion</li></Link>
+                
             </ul>
             <button className='nav-btn nav-close-btn' onClick={showNavbar}>
                 <FaTimes/>

@@ -5,7 +5,7 @@ export default function LogoComponent() {
   return (
     <>
       <span id='logo'>
-        <Link to='/'>Connectify</Link>
+        <Link to='/'><span style={{color:'yellow'}}> Connectify </span></Link>
         </span>
     </>
   )

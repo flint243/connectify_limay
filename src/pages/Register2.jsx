@@ -6,8 +6,7 @@ import "@assets/Register.css";
 import pexels from "@assets/recups/inscription/pexels-budgeron-bach-5158233.jpg";
 //import { generateUserDocument } from '../services/user';
 import NavAccueil from '@layouts/NavAccueil';
-import { signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
+import { createUserWithEmailAndPassword, 
   onAuthStateChanged 
 } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
