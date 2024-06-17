@@ -1,0 +1,34 @@
+h2{
+    position: relative;
+    color:orange;
+    text-align: center;
+}
+
+.avatarProfil{
+    width: auto;
+    border-radius: 50%;
+}
+
+.nomPrenom{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    font-size: 3rem;
+}
+
+.myWall{
+    background-color: white;
+}
+
+.cadreVideoWall{
+    width: 40%;
+    height: auto;
+    margin: 0px;
+}
+video.videoWall{
+    width: 100%;
+    position: relative;
+    left: 0px;
+   
+}
+

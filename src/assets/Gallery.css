@@ -1,0 +1,66 @@
+h2{
+    position: relative;
+    color:orange;
+    text-align: center;
+}
+
+.bannerProfilInt{
+    display: flex;
+    position: absolute;
+    top: 0;
+    width: 90%;
+    height: 50%;
+    left: 50%;
+    top: 40%;
+    justify-content: space-between;
+    padding: 100px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(104, 98, 98, 0.831);
+}
+
+.avatarProfil{
+    width: auto;
+    border-radius: 50%;
+}
+
+.nomPrenom{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    font-size: 3rem;
+}
+
+.myWall{
+    background-color: white;
+}
+.wallInt{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 50px;
+    background-color: white;
+}
+
+
+.cadreDescriptionGallery{
+    width: auto;
+    height: auto;
+    padding: 20px;
+}
+
+.contentImgFlex{
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    height: auto;
+    position: relative;
+    padding: 10px ;
+    background-color: aliceblue;
+}
+.imgRow{
+    width: 250px;
+    height: 200px;
+}
+

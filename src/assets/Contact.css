@@ -4,6 +4,9 @@
     height: auto;
     background-color: rgba(128, 255, 0, 0.332);
 }
+.contactImg{
+    width: 50%;
+}
 .contactForm{
     width: 30%;
     margin-left: auto;

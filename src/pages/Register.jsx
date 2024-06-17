@@ -5,9 +5,6 @@ import Header from '@layouts/Header'
 import { Link } from 'react-router-dom';
 import '@assets/Register.css'
 import '@assets/recups/contact/fd_contact.jpg'
-import app from '../firebaseConfig'
-import { getDatabase, ref, set, push } from "firebase/database"
-import { error } from "jquery"
 
 
 

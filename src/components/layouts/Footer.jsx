@@ -3,7 +3,9 @@ import  '@assets/Footer.css'
 const Footer = () => {
     return (
         <footer>
-            <h1>Footer pour React</h1>
+            <div className='titrefooter'>
+                <p>2024 Connectify. Tous Droits Réservés.</p>
+            </div>
         </footer>
     );
 };

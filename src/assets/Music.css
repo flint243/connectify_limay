@@ -1,0 +1,59 @@
+h2{
+    position: relative;
+    color:orange;
+    text-align: center;
+}
+
+.avatarProfil{
+    width: auto;
+    border-radius: 50%;
+}
+
+.nomPrenom{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    font-size: 3rem;
+}
+
+.myWall{
+    background-color: white;
+}
+.wallInt{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 50px;
+    background-color: white;
+}
+
+.audios{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: auto;
+    height: auto;
+}
+.contentAudio h2{
+    align-items: left;
+    color: white;
+}
+.audio1{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    background-color: green;
+}
+.hiphop{
+    width: 50%;
+    height: 100%;
+}
+.audio2{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    background-color: green;
+}

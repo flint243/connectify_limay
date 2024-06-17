@@ -1,13 +1,29 @@
-import React from "react"
-import withSignOut from 'react-auth-kit/hoc/withSignOut';
+import HeaderProfil from '@layouts/HeaderProfil';
+import '@assets/walls.css';
+import NavProfil from '@layouts/NavProfil'
+import ProfilWallComponent from '@Profils/ProfilWallComponent';
+import ArticlesComponent from '@partials/ArticlesPartialComponent';
 
-class signOutComponent extends React.Component {
 
-    render(){
-        return (
-            <button onClick={() => this.props.signOut()}>Sign Out</button>
-        )
-    }
-}
 
-export default withSignIn(signOutComponent)
+const Walls = () => {
+    return (
+        <>
+        <HeaderProfil/>
+        <NavProfil />
+        <div className='myWall'>
+            <div className='titreWall'>
+             </div>
+            <div className='wallInt'>
+            <ArticlesComponent/>
+            <ProfilWallComponent />
+        </div>
+
+    </div>
+        </>
+    );
+};
+
+
+
+export default Walls;

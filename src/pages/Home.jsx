@@ -1,31 +1,27 @@
 import Header from '@layouts/Header'
 import '@assets/Home.css'
-import  '@assets/recups/accueil/fd_accueil.mp4'
-import '@assets/recups/accueil/fd_actualite.jpg'
-import '@assets/recups/accueil/fd_qsn.jpg'
+import fd_contact from '@assets/recups/contact/fd_contact.jpg'
+import fd_actualite from  '@assets/recups/accueil/fd_actualite.jpg'
+import fd_qsn from  '@assets/recups/accueil/fd_qsn.jpg'
+import NavAccueil from '@layouts/NavAccueil'
+import Video from '/src/components/Video'
 
 const Home = () => {
   return (
     <>
-    
+    <Video />
+    <div className='content'>
+                <h1>
+                    Connectify
+                </h1>
+              </div>
       <Header/>
+      <NavAccueil />
+      
         <div className='container'>
-          <div className='content'>
-              <h1>
-                Connectify
-              </h1>
-            </div>
-          <div id='video1'>
-              <video id="background-video" autoPlay loop muted>
-                <source src="/src/assets/recups/accueil/fd_accueil.mp4" type='video/mp4'/>
-              </video>
-          </div>
-
           <div id='video2'>
             <div id='filtre'></div>
-              <video id="background-video2" autoPlay loop muted>
-                <source src="/src/assets/recups/accueil/fd_accueil.mp4" type='video/mp4'/>
-              </video>
+            <Video />
               <div className='content2'>
                 <h1>
                   Bienvenue
@@ -35,7 +31,7 @@ const Home = () => {
           </div>
 
           <section id='quadri'>
-            <img src="/src/assets/recups/accueil/fd_actualite.jpg" alt=""  width="50%"/>
+            <img src={fd_actualite} alt="" className='fd_actu'/>
             <div className='text1'>
               <h1>Actualité</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis culpa atque mollitia architecto! At pariatur est autem reprehenderit, enim alias vero repudiandae dicta temporibus doloremque, sint optio, quisquam nulla commodi!</p>
@@ -44,11 +40,11 @@ const Home = () => {
               <h1>Qui sommes nous ?</h1>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum illum voluptates est? Distinctio quod voluptatum nesciunt minima quo, voluptas nobis recusandae! Obcaecati tempore quaerat commodi ratione impedit enim nemo animi.</p>
             </div>
-            <img src="/src/assets/recups/accueil/fd_qsn.jpg" alt=""  width="50%"/>
+            <img src= {fd_qsn} alt="" className='fd_qsn'/>
           </section>
 
           <section id='contact'>
-            <img src="/src/assets/recups/contact/fd_contact.jpg" alt=""  width="50%"/>
+            <img src= {fd_contact} alt="" className='fd_contact'/>
             <div className='contactForm'>
               <h1>Nous contacter</h1>
               <form action="">
@@ -74,9 +70,7 @@ const Home = () => {
                       <button type='button'>Valider</button>
                     </form>
                 </div>
-                <video id="background-video3" autoPlay loop muted>
-                  <source src="/src/assets/recups/accueil/fd_accueil.mp4" type='video/mp4'/>
-                </video>
+                <Video />
             </div>
           </div>
         </div>

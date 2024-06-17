@@ -1,0 +1,102 @@
+h2{
+    position: relative;
+    color:orange;
+    text-align: center;
+}
+
+
+.bannerProfilInt{
+    display: flex;
+    position: absolute;
+    top: 0;
+    width: 90%;
+    height: 50%;
+    left: 50%;
+    top: 40%;
+    justify-content: space-between;
+    padding: 100px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(104, 98, 98, 0.831);
+}
+
+.avatarProfil{
+    width: auto;
+    border-radius: 50%;
+}
+
+.nomPrenom{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    font-size: 3rem;
+}
+
+.myWall{
+    background-color: white;
+}
+.wallInt{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: white;
+}
+
+.cadreDescriptionWallExt{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 5px;
+}
+.cadreDescriptionWallInt{
+    width: 100%;
+    height: auto;
+    padding: 20px 50px;
+    background-color: grey;
+}
+
+.bannierWall{
+    width: 100%;
+    background-color: rgb(205, 202, 202);
+}
+.contentImgWall{
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 10px;
+    padding: 10px ;
+    background-color: aliceblue;
+}
+
+.footerWall{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 5px;
+    background-color: green;
+}
+textarea#textarea{
+    width: 80%;
+    height:100%;
+    border-radius: 5px;
+    border: none;
+    background-color: white;
+}
+
+.icons{
+    display: flex;
+    width: auto;
+    height: auto;
+}
+.icon1{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: yellow;
+}
+.icon2{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(2, 78, 2);
+}

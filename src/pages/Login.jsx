@@ -1,96 +1,101 @@
-import { useRef, useState, useEffect} from 'react'
-import Header from '@layouts/Header'
+import React, { useState } from "react";
 import '@assets/Login.css'
-import { Link } from 'react-router-dom';
+import NavAccueil from '@layouts/NavAccueil'
+import { Link } from "react-router-dom";
+import { auth } from "../firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import imgContact from "@assets/recups/contact/fd_contact.jpg";
+import { getUserDocument } from '../services/user';
 
+const SignIn = ({ setUser }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-const Login = () => {
-    const userRef = useRef()
-    const errRef = useRef()
+  const signInWithEmailAndPasswordHandler = async (event) => {
+    event.preventDefault();
+    setError(null);
 
-    const [user, setUser] = useState('')
-    const [pwd, setPwd] = useState('')
-    const [errMsg, setErrMsg] = useState('')
-    const [success, setSuccess] = useState(false)
-/*
-    useEffect(() => {
-        userRef.curent.focus()
-    }, [])
-*/
-    useEffect(() => {
-        setErrMsg('')
-    }, [user, pwd])
+    if (email === "" || password === "") {
+        setError("Email et mot de passe sont obligatoires.");
+        return;
+      }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        setUser('')
-        setPwd('')
-        setSuccess(true)
+    try {
+        const credentials = await signInWithEmailAndPassword(auth, email, password);
+        const user = await getUserDocument(credentials.user.uid);
+        
+    } catch (error) {
+      if (error.code === 'auth/invalid-credential') {
+        setError("Informations d'identification invalides.");
+      } else if (error.code === 'auth/user-not-found') {
+        setError("Utilisateur non trouvé.");
+      } else if (error.code === 'auth/wrong-password') {
+        setError("Mot de passe incorrect.");
+      } else {
+        setError("Erreur lors de la connexion. Veuillez réessayer.");
+      }
+      console.error("Erreur lors de la connexion", error);
+    }
+  };
+
+  const onChangeHandler = (event) => {
+    const { name, value } = event.currentTarget;
+
+    if (name === "userEmail") {
+      setEmail(value);
     }
 
-    return (
-        <>
-        <Header/>
-        <div id='cadreLogin'>
-            <img src="/src/assets/recups/connexion/fd_connexion.jpg" alt=""  width="45%"/>
-        <Link to='/Home'></Link>
-        <Link to='/Register'></Link>
-        {success ? (
-            <div id='textConnect'>
-                <h1>Vous êtes connécté</h1><br/>
-                <p>
-                    <a href="/">Retour à l'accueil</a>
-                </p>
-             </div>
-        ) : (
-            
-        <div className='cadreForm'>
-            <p ref={errRef} className={errMsg ? "erreur" :
-            "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Connexion</h1>
-            <form onSubmit={handleSubmit} className='formulaireLogin'>
-            <div className='inputs'>
-                <label htmlFor="Nom">Nom:</label> <br />
-                <input type="text" 
-                    id="nom"
-                    ref={userRef} 
-                    autoComplete='off'
-                    onChange={(e) => setUser(e.target.value)}
-                    value={user}
-                    required
-                />
-                </div>
-                <br /><br />
+    if (name === "userPassword") {
+      setPassword(value);
+    }
+  };
 
-                <div className='inputs'>
-                <label htmlFor="password">Password:</label><br />
-                <input 
-                    type="password" 
-                    id="password"
-                    onChange={(e) => setPwd(e.target.value)}
-                    value={pwd}
-                    required
-                />
-                </div>
-               
-                <br /><br />
-                <div className='divBtn'>
-                <button className='btnConnect'>Connexion</button>
-                </div>
-            </form>
-            <p>
-                besoin d'un compte ?  
-                <span className='line'>
-                    {/*put router lin here*/}
-                    <a href="/Register">Enregistrez-vous</a>
-                </span>
-            </p>
+  return (
+    <>
+    <NavAccueil/>
+      <div>
+        <div id="cadreLogin">
+          <img src={imgContact} className="LoginImg" alt="" />
+          <div className="cadreForm">
+          <h1>Connexion</h1>
+          {error !== null && <div>{error}</div>}
+          <form className="formulaireLogin">
+            <label htmlFor="userEmail">Email :</label>
+            <input
+              type="email"
+              name="userEmail"
+              value={email}
+              id="userEmail"
+              onChange={(event) => onChangeHandler(event)}
+            />
+            <label htmlFor="userPassword">Mot de passe :</label>
+            <input
+              type="password"
+              name="userPassword"
+              value={password}
+              id="userPassword"
+              onChange={(event) => onChangeHandler(event)}
+            /> 
+            {" "}
+            <div className="divBtn">
+            <button className="btnConnect"
+              onClick={(event) =>
+                signInWithEmailAndPasswordHandler(event, email, password)
+              }
+            >
+              Se connecter
+            </button>
+            </div>
+          </form>
+          <p>
+            Pas de compte ? <Link to="/Register">Créez en un ici</Link>
+          </p>
         </div>
-        
-        )}
-        </div>
-        </>
-    )
+      </div>
+      </div>
+    </>
+  );
 };
 
-export default Login;
+export default SignIn;

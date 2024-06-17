@@ -1,0 +1,6 @@
+.ProfilWallsImg{
+    background-image: url("/public/banner_profil.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 70vh;
+}

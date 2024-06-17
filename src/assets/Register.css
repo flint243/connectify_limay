@@ -2,6 +2,10 @@
     font-family:Verdana, Geneva, Tahoma;
 }
 
+.pexel{
+    width: 50%;
+}
+
 .inscriptionGroup{
     display: flex;
     flex-direction: row;
@@ -13,7 +17,7 @@
     height: 100%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: relative;
-    margin-top: 5%;
+    margin-top: 10%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -36,22 +40,31 @@
 form{
     padding: 5px;
 }
+.labNoms{
+    position: relative;
+    top:0px;
+}
 form input{
     width:  100%;
     height: 65px;
     border-radius: 10px;
     border: none;
-    padding: 5px;
+    padding: 10px;
+    color: black;
+    background-color: white;
 }
 form .radio{
     height: 30px;
 }
 
-#cadreNoms{
-    width: 100%;
-    display: inline-block;
-    padding: 10px;
+.cadreNoms{
+    display: flex;
+    width: auto;
+    height: auto;
+    justify-content: space-between;
+    column-gap: 20px;
 }
+
 #uidnote{
     position: relative;
     background-color: black;
@@ -99,8 +112,8 @@ form .radio{
     font-size: 0.5rem;
     margin-top: 5px;
 }
-.offscreen{
-    z-index: 1;
+.btnForm{
+   background-color: rgb(255, 234, 0);
 }
 .emailFocus{
     visibility: visible;
@@ -134,10 +147,8 @@ form .radio{
 .hide {
     display: none;
 }
-.invalid {
-    margin-left: 2px;
+.text-danger {
     color: red;
-    display: inline;
 }
 span {
     color: red;

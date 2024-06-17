@@ -1,193 +1,235 @@
-import {useState } from "react"
-import Header from '@layouts/Header'
-import { Link } from 'react-router-dom';
-import '@assets/Register.css'
-import '@assets/recups/contact/fd_contact.jpg'
-import {storage} from '../firebaseConfig'
-import { getDatabase, ref, set, push } from "firebase/database"
-import {createUserWithEmailAndPassword} from 'firebase/auth'
-import React from 'react';
+import { useState, useRef, useEffect } from "react";
+import { auth } from '../firebaseConfig';
+import Header from "@layouts/Header";
+import { Link } from "react-router-dom";
+import "@assets/Register.css";
+import pexels from "@assets/recups/inscription/pexels-budgeron-bach-5158233.jpg";
+//import { generateUserDocument } from '../services/user';
+import NavAccueil from '@layouts/NavAccueil';
+import { signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  onAuthStateChanged 
+} from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 
-const Register2 = () => {
-    const [formData, setFormData] = useState({
-        nom: '',
-        prenom: '',
-        email: '',
-        genre: '',
-        password: '',
-        confirmPassword: ''
+
+const SignUp = ({ setUser }) => {
+  const navigate = useNavigate()
+
+  const [currentUser, setCurrentUser] = useState()
+  const [loadingData, setLoadingData] = useState(true)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setCurrentUser(currentUser)
+      setLoadingData(false)
     })
+    return unsubscribe;
+  }, [])
 
-    const saveData = async () => {
-        const db = getDatabase(storage)
-        const newDocRef = push(ref(db, "contacts"))
-        set(newDocRef, {
-            nom: '',
-            prenom: '',
-            email: '',
-            genre: '',
-            password: '',
-            confirmPassword: ''
-        }).then(() => {
-            alert("Données sauvées avec succès !")
-        }).catch((error) =>{
-            alert("erreure:", error.message)
-        })
+  const formRef = useRef();
+  const [validation, setValidation] = useState("")
+
+  const [nom, setNom] = useState("");
+  const [displayName, setPrenom] = useState("");
+  const [email, setEmail] = useState(""); 
+  const [genre, setGenre] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleForm = async (event) => {
+    event.preventDefault();
+    if((formRef.current[1].value.length || formRef.current[1].value.length )
+      < 6){
+          setValidation("6 carractères minimum!")
+          return;
     }
 
-    const [errors, setErrors] = useState({})
-
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormData({
-            ...formData, [name] : value
-    })
-}
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const validationErrors = {}
-        if(!formData.nom.trim()){
-            validationErrors.nom = "Saisissez votre nom !"
-        }
-
-        if(!formData.prenom.trim()){
-            validationErrors.prenom = "Saisissez votre prénom !"
-        }
-
-        if(!formData.email.trim()){
-            validationErrors.email = "saisissez votre email !"
-        }else if(!/\S+@\S+\.\S+/ .test(formData.email)){
-            validationErrors.email = "Email non valide !"
-        }
-
-        if(!formData.password.trim()){
-            validationErrors.password = "saisissez votre password !"
-        }else if(formData.password.length < 6){
-            validationErrors.password = "Votre mot de passe doit contenir au moins 6 caractères !"
-        }
-
-        if(formData.confirmPassword !== formData.password) {
-            validationErrors.confirmPassword = "Votre mot de passe n'est pas identique !"
-        }
-        
-        setErrors(validationErrors)
-
-        if(Object.keys().length === 0) {
-            alert("Formulaire validé avec succès !")
-        }
-
-        createUserWithEmailAndPassword(database, nom, prenom, email, genre, password, confirmPassword).then(data=>(
-            console.log(data, "auth")
-        ))
-
+    if (password !== confirmpassword) {
+      setValidation("Les mots de passe ne correspondent pas!");
+      return;
     }
-    return (
-         <>
-        <Header/>
-        <Link to='/Home'></Link>
-        <Link to='/Login'></Link>
 
-        <div className="inscriptionGroup">
-            <img src="src/assets/recups/inscription/pexels-budgeron-bach-5158233.jpg" alt="" width="50%"/>
+    try {
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);
+      await generateUserDocument(user, { nom, displayName, genre });
 
-            <div id="cadreExtInscription">
-            <h1>Inscription</h1>
-            <div id="cadreForm">
-            
-            <form onSubmit={handleSubmit}>
-                <div id="cadreNom">
-                <label htmlFor="nom">
-                    Nom
-                </label><br />
-                <input 
-                type="text" 
-                id="nom"
-                placeholder="Nom"
-                autoComplete="off"
-                onChange={handleChange}/>
-                {errors.nom && <span> {errors.nom} </span>}
-                </div>
+      // Reset the form
+      if (formRef.current) {
+        formRef.current.reset();
+        setValidation("")
+        navigate("/private/private-home")
+      }
 
-                <div id="cadrePrenom">
-                <label htmlFor="prenom">
-                    Prénom
-                </label><br />
-                <input 
-                type="text" 
-                id="prenom"
-                placeholder="Prénom"
-                autoComplete="off"
-                onChange={handleChange}/>
-                {errors.prenom && <span> {errors.prenom} </span>}
-                </div><br />
+      setUser(user);
+      console.log(user);
+    } catch (error) {
+      if(error.code === "auth/invalid-email"){
+        setValidation("Format email invalide")
+      }
+      if(error.code === "auth/email-already-in-use"){
+        setValidation("Email déja utilisé")
+      }
+      setError("Vous êtes bien inscrit !");
+      
+    }
+  };
 
-                <div id="cadreEmail">
-                    <label htmlFor="email">
-                        Email
-                    </label><br />
-                    <input 
-                    type="email" 
-                    id="email"
-                    placeholder="Email"
+  const onChangeHandler = (event) => {
+    const { name, value } = event.currentTarget;
+    switch (name) {
+      case "userNom":
+        setNom(value);
+        break;
+      case "userPrenom":
+        setPrenom(value);
+        break;
+      case "userEmail":
+        setEmail(value);
+        break;
+      case "userGenre":
+        setGenre(value);
+        break;
+      case "userPassword":
+        setPassword(value);
+        break;
+      case "userConfirmPassword":
+        setConfirmPassword(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  return (
+    <>
+      <Header />
+      <NavAccueil />
+      <Link to="/Home"></Link>
+      <Link to="/Login"></Link>
+
+      <div className="inscriptionGroup">
+        <img src={pexels} alt="" className="pexel"/>
+
+        <div id="cadreExtInscription">
+          <h1>Inscription</h1>
+          <div id="cadreForm">
+            {error !== null && (
+              <div>{error}</div>
+            )}
+            <form ref={formRef} onSubmit={handleForm}>
+              <div className="cadreNoms">
+                <div id="leNom">
+                  <label htmlFor="nom" className="labNoms">Nom</label>
+                  <input
+                    type="text"
+                    id="nom"
+                    name="userNom"
+                    value={nom}
+                    placeholder="Nom"
                     autoComplete="off"
-                    onChange={handleChange}/>
-                    {errors.email && <span> {errors.email} </span>}
-                </div><br />
-
-                <div className="genreGroup">
-                    Genre:
-                    <input type="radio" className="radio" name="genre" />
-                    <label htmlFor="monsieur">Homme</label>
-                    <input type="radio" className="radio" name="genre" />
-                    <label htmlFor="femme">Femme</label>
+                    onChange={(event) => onChangeHandler(event)}
+                  />
                 </div>
 
-            <div id="password">
-                <label htmlFor="password">
-                    Password
-                    </label><br />
-                <input 
-                type="password" 
-                id="password"
-                placeholder="Mot de passe"
-                autoComplete="off"
-                onChange={handleChange}/>
-                {errors.password && <span> {errors.password} </span>}
-                </div><br />
-
-                <div id="confirmpassword">
-                <label htmlFor="confirm_pwd">
-                    Confirm Password
-                </label><br />
-                <input 
-                type="password" 
-                id="confirm_pwd"
-                placeholder=" Confirme mot de passe"
-                autoComplete="off"
-                onChange={handleChange}/>
-                {errors.confirmPassword && <span> {errors.confirmPassword} </span>}
-                </div><br />
-
-                <div id="btnGroup">
-                    <button onClick={saveData} className="btnForm">
-                    Sign Up
-                    </button>
+                <div id="lePrenom">
+                  <label htmlFor="prenom" className="labNoms">Prénom</label>
+                  <input
+                    type="text"
+                    id="prenom"
+                    name="userPrenom"
+                    value={displayName}
+                    placeholder="Prénom"
+                    autoComplete="off"
+                    onChange={(event) => onChangeHandler(event)}
+                  />
                 </div>
+              </div>
+              <br />
+
+              <div id="cadreEmail">
+                <label htmlFor="email">Email</label>
+                <br />
+                <input
+                  type="email"
+                  id="email"
+                  name="userEmail"
+                  value={email}
+                  placeholder="Email"
+                  autoComplete="off"
+                  onChange={(event) => onChangeHandler(event)}
+                />
+                 <p className="text-danger">{validation}</p>
+              </div>
+              <br />
+
+              <div className="genreGroup">
+                Genre:
+                <input 
+                  type="radio" 
+                  className="radio" 
+                  name="userGenre" 
+                  value="Homme" 
+                  checked={genre === "Homme"}
+                  onChange={(event) => onChangeHandler(event)}
+                />
+                <label htmlFor="monsieur">Homme</label>
+                <input 
+                  type="radio" 
+                  className="radio" 
+                  name="userGenre" 
+                  value="Femme" 
+                  checked={genre === "Femme"}
+                  onChange={(event) => onChangeHandler(event)}
+                />
+                <label htmlFor="femme">Femme</label>
+              </div>
+
+              <div id="password">
+                <label htmlFor="password">Password</label>
+                <br />
+                <input
+                  type="password"
+                  id="password"
+                  name="userPassword"
+                  value={password}
+                  placeholder="Mot de passe"
+                  autoComplete="off"
+                  onChange={(event) => onChangeHandler(event)}
+                />
+              </div>
+
+              <div id="confirmpassword">
+                <label htmlFor="confirm_pwd">Confirm Password</label>
+                <br />
+                <input
+                  type="password"
+                  id="confirm_pwd"
+                  name="userConfirmPassword"
+                  value={confirmpassword}
+                  placeholder="Confirme mot de passe"
+                  autoComplete="off"
+                  onChange={(event) => onChangeHandler(event)}
+                />
+              </div>
+              <br />
+
+              <div id="btnGroup">
+                <button
+                  type="submit"
+                  className="btnForm"
+                >
+                 Valider
+                </button>
+              </div>
             </form>
-            </div>
-            <p>
-                Pas enregistré? <br />
-                <span className="line">
-                    {/*lien router*/}
-                    <a href="/">Inscri toi</a>
-                </span>
-            </p>
-            </div>
+          </div>
         </div>
-        </>
-    );
+      </div>
+    </>
+  );
 };
 
-export default Register2;
+export default SignUp;

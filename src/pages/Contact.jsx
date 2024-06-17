@@ -1,15 +1,17 @@
 import React from 'react';
-//import '@assets/recups/accueil/fd_qsn.jpg'
+import contact from '@assets/recups/contact/fd_contact.jpg'
 import '@assets/Contact.css'
 import Header from '@layouts/Header'
+import NavAccueil from '@layouts/NavAccueil'
 import Footer from '@layouts/Footer'
 
 const Contact = () => {
     return (
         <>
         <Header/>
+        <NavAccueil/>
             <div id='cadreContact'>
-                <img src="/src/assets/recups/contact/fd_contact.jpg" alt=""  width="50%"/>
+                <img src={ contact } alt=""className='contactImg'/>
                 <div className='contactForm'>
                     <h1>Nous contacter</h1>
                     <form action="">

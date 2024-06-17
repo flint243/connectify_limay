@@ -5,6 +5,9 @@ import Pages from 'vite-plugin-pages'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    'process.env': {},
+  },
   plugins: [
     react(),
     Pages({
@@ -16,6 +19,10 @@ export default defineConfig({
       {
         find: '@',
         replacement: path.resolve(__dirname, 'src')
+      },
+      {
+        find: '@components',
+        replacement: path.resolve(__dirname, 'src/components/')
       },
       {
         find: '@layouts',
@@ -32,6 +39,10 @@ export default defineConfig({
       {
         find: '@assets',
         replacement: path.resolve(__dirname, 'src/assets/')
+      },
+      {
+        find: '@Profils',
+        replacement: path.resolve(__dirname, 'src/components/Profils')
       },
     ]
   }
