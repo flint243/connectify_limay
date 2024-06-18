@@ -8,15 +8,15 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 # connectify_limay
 
-Projet Connectify: réseau social sur le thème de la musique
+# Projet Connectify: réseau social sur le thème de la musique
 
-TECHNOLOGIE: JavaScript, React JS
+# TECHNOLOGIE: JavaScript, React JS
 
-ENVIRONNEMENT DE TRAVAIL:
- EDITEUR DE TEXTE: VS Code
- GitHub => commit grace à l'aide du plug-in react-swc (lien dessus)
+# ENVIRONNEMENT DE TRAVAIL:
+- EDITEUR DE TEXTE: VS Code
+- GitHub => commit grace à l'aide du **plug-in react-swc** (lien dessus)
 
- TECHNIQUES ET DEPENDENCES UTILISEES:
--Hooks
--components
--styled-component
+# TECHNIQUES ET DEPENDENCES UTILISEES:
+- Hooks
+- components
+- styled-component
