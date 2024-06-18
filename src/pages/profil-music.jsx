@@ -7,8 +7,11 @@ import MusicComponent from '@Profils/ProfilMusicComponent';
 const Music = () => {
     return (
         <>
+        {/* SECTION HEADER */}
         <HeaderProfil/>
         <NavProfil />
+
+        {/* SECTION MAIN */}
         <div className='myWall'>
             <div className='wallInt'>
             <article>
@@ -18,6 +21,8 @@ const Music = () => {
                 <div id='video' className='wallrow'>Video</div>
                 <div id='music' className='wallrow'>Music</div>
             </article>
+
+            {/* COMPONENT SECTION MUSIQUE */}
             <MusicComponent/>
         </div>
     </div>

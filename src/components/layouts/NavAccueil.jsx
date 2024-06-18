@@ -1,31 +1,46 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+import { NavLink } from "react-router-dom";
 import '@assets/NavAccueil.css';
-import {FaBars, FaTimes} from 'react-icons/fa'
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const NavAccueil = () => {
-    const showNavbar = () => {
-        navRef.current.classList.toggle("responsive_nav")
-    }
-    return (
-        <nav className='navAccueil'>
-            <span id='logo'>Connectify</span>
-            <ul>
-                <Link to='/'><li>Home</li></Link>
-                <Link to='/Register'><li>Enregistrement</li></Link>
-                <Link to='/Login'><li>Connexion</li></Link>
-                <Link to='/Contact'><li>Contact</li></Link>
+    const navRef = useRef(null);
 
-                <Link to='/deconnexion'><li>Deconnexion</li></Link>
-                
+    const showNavbar = () => {
+        navRef.current.classList.toggle("responsive_nav");
+    };
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+    };
+
+    return (
+        <>
+        <nav className='navAccueil'>
+            <NavLink to='/'><span id='logo'>Connectify</span></NavLink>
+            <ul ref={navRef}>
+                    <NavLink to='/'><li>Accueil</li></NavLink>
+                   <NavLink to='/Register'><li>Inscription</li></NavLink>
+                    <NavLink to='/Login'><li>Connexion</li></NavLink>
+                {isLoggedIn ? (
+                    <button onClick={handleLogout} className='btnDeconnect'>Déconnexion</button>
+                ) : (
+                   <>
+                    <NavLink to='/Contact'><li>Contact</li></NavLink>
+                    <NavLink to='/profil'><li>Profil</li></NavLink>
+                    </>
+                )}
             </ul>
             <button className='nav-btn nav-close-btn' onClick={showNavbar}>
-                <FaTimes/>
+                <FaTimes />
             </button>
             <button className='nav-btn' onClick={showNavbar}>
-                <FaBars/>
+                <FaBars />
             </button>
-            </nav>
+        </nav>
+        </>
     );
 };
 

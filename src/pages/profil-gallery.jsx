@@ -6,10 +6,11 @@ import GalleryComponent from '@Profils/ProfilGalleryComponent';
 const Gallery = () => {
     return (
         <>
+        {/* SECTION HEADER */}
         <HeaderProfil/>
         <NavProfil />
        
-        
+        {/* SECTION MAIN */}
         <div className='myWall'>
             <div className='wallInt'>
                 <article>
@@ -19,6 +20,8 @@ const Gallery = () => {
                     <div id='video' className='wallrow'>Video</div>
                     <div id='music' className='wallrow'>Music</div>
                 </article>
+
+                {/* COMPONENT SECTION GALLERY */}
                 <GalleryComponent/>
             </div>
         </div>

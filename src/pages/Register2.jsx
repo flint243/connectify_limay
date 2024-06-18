@@ -1,10 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { auth } from '../firebaseConfig';
-import Header from "@layouts/Header";
 import { Link } from "react-router-dom";
 import "@assets/Register.css";
 import pexels from "@assets/recups/inscription/pexels-budgeron-bach-5158233.jpg";
-//import { generateUserDocument } from '../services/user';
 import NavAccueil from '@layouts/NavAccueil';
 import { createUserWithEmailAndPassword, 
   onAuthStateChanged 
@@ -104,11 +102,13 @@ const SignUp = ({ setUser }) => {
 
   return (
     <>
-      <Header />
+    {/* SECTION HEADER */}
       <NavAccueil />
+      {/* LIENS DE NAVIGATION */}
       <Link to="/Home"></Link>
       <Link to="/Login"></Link>
 
+{/* SECTION INSCRIPTION */}
       <div className="inscriptionGroup">
         <img src={pexels} alt="" className="pexel"/>
 
@@ -118,6 +118,7 @@ const SignUp = ({ setUser }) => {
             {error !== null && (
               <div>{error}</div>
             )}
+            {/* FORMULAIRE INSCRIPTION */}
             <form ref={formRef} onSubmit={handleForm}>
               <div className="cadreNoms">
                 <div id="leNom">

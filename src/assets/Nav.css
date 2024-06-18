@@ -3,6 +3,9 @@
     padding-top: 20px;
     background-color: green;
 }
+nav ul a.active{
+    color: yellow;
+}
 
 ul{
     position: relative;

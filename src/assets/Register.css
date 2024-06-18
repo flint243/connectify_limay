@@ -160,3 +160,21 @@ span {
     visibility: hidden;
 }
 
+
+
+@media only screen and (max-width:425px){
+
+.inscriptionGroup{
+    flex-direction: column;
+}
+#cadreExtInscription {
+    width: 100%;
+    margin-left: 0px;
+}
+
+#cadreForm {
+    width: 100%;
+}
+
+
+}

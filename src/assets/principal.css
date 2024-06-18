@@ -1,5 +1,5 @@
 .cadrePrincipal{
-   
+   padding: 10px;
     background-color: white;
 }
 
@@ -15,7 +15,6 @@
     height: auto;
     margin-left: auto;
     margin-right: auto;
-    background-color: orange;
 }
 
 .videoPrincipalExt{
@@ -26,3 +25,5 @@
     width: auto;
     height: auto;
 }
+
+

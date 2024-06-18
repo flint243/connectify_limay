@@ -10,7 +10,10 @@ const Nav = () => {
     }
     return (
         <nav className='navGeneral'>
+            {/* COMPONENT LOGO */}
             <Logo/>
+
+            {/* SECTION PAGES_LINKS */}
             <ul>
                 <Link to='/'><li>Home</li></Link>
                 <Link to='/Register'><li>Enregistrement</li></Link>
@@ -18,8 +21,9 @@ const Nav = () => {
                 <Link to='/Contact'><li>Contact</li></Link>
 
                 <Link to='/deconnexion'><li>Deconnexion</li></Link>
-                
             </ul>
+
+            {/* BOUTONS BOOTSTRAP */}
             <button className='nav-btn nav-close-btn' onClick={showNavbar}>
                 <FaTimes/>
             </button>

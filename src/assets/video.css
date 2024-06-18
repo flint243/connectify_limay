@@ -20,6 +20,14 @@ h2{
     background-color: white;
 }
 
+.wallVideoInt{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: white;
+}
+
 .cadreVideoWall{
     width: 40%;
     height: auto;

@@ -8,6 +8,7 @@ const HeaderProfil = () => {
     return(
         <>
         <header className="headerProfil">
+            {/* COMPONENT BANNIERE IMAGE PROFIL */}
             <ProfilComponent />
             </header>
         </>

@@ -1,6 +1,8 @@
-import React, {useContext} from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, {useContext, useState} from 'react';
+import { BrowserRouter , Routes, Route } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import "./App.css";
+import NavAccueil from "@layouts/NavAccueil";
 import Footer from "@layouts/Footer";
 import Home from "@pages/Home";
 import Login from "@pages/Login";
@@ -21,8 +23,8 @@ function App() {
 
   return (
     <>
-     <MyContext.Provider value={contextValue}>
-      <Router>
+    <BrowserRouter>
+      <NavAccueil/>
         <Routes>
           <Route path={"/"} element={<Home />} />
           <Route path={"/login"} element={<Login />} />
@@ -37,9 +39,8 @@ function App() {
             <Route path="/private/private-home" element={<privateHome/>} />
           </Route>
         </Routes>
-      </Router>
      <Footer/>
-      </MyContext.Provider>
+     </BrowserRouter>
     </>
   );
 }

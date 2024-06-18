@@ -3,21 +3,20 @@ import '@assets/Home.css'
 import fd_contact from '@assets/recups/contact/fd_contact.jpg'
 import fd_actualite from  '@assets/recups/accueil/fd_actualite.jpg'
 import fd_qsn from  '@assets/recups/accueil/fd_qsn.jpg'
-import NavAccueil from '@layouts/NavAccueil'
 import Video from '/src/components/Video'
 
 const Home = () => {
   return (
     <>
+    {/* SECTION HEADER */}
     <Video />
     <div className='content'>
                 <h1>
                     Connectify
                 </h1>
               </div>
-      <Header/>
-      <NavAccueil />
       
+      {/* SECTION MAIN */}
         <div className='container'>
           <div id='video2'>
             <div id='filtre'></div>
@@ -30,6 +29,7 @@ const Home = () => {
               </div>
           </div>
 
+{/* SECTION QUI SOMMES NOUS ? */}
           <section id='quadri'>
             <img src={fd_actualite} alt="" className='fd_actu'/>
             <div className='text1'>
@@ -43,22 +43,26 @@ const Home = () => {
             <img src= {fd_qsn} alt="" className='fd_qsn'/>
           </section>
 
+{/* SECTION CONTACT */}
           <section id='contact'>
             <img src= {fd_contact} alt="" className='fd_contact'/>
             <div className='contactForm'>
               <h1>Nous contacter</h1>
-              <form action="">
+              <form action="" style={{backgroundColor:'#2f5e2f', fontFamily:'verdana'}}>
                 <label htmlFor="email">Email:</label><br />
                 <input type="email" /><br />
                 <label htmlFor="sujet">Sujet:</label><br />
                 <input type="sujet" /><br />
                 <label htmlFor="message">Message:</label><br />
-                <textarea name="message" id="message"></textarea><br /><br />
-                <button type='button'>Valider</button>
+                <textarea name="message" id="message" style={{backgroundColor:'white', color:'black', height:'150px'}}></textarea><br /><br />
+                <div style={{textAlign:'center'}}>
+                  <button type='button' style={{backgroundColor:'yellow', paddingLeft:'50px', paddingRight:'50px'}}>Valider</button>
+                </div>
               </form>
             </div>
           </section>
 
+{/* SECTION NEWS LETTER */}
           <div id='newsletter'>
             <div className='cadreNews'>
                 <div className='content3'>
@@ -67,7 +71,7 @@ const Home = () => {
                     </h1>
                     <form action="" className='newsForm'>
                       <input name="message" id="message" /><br /><br />
-                      <button type='button'>Valider</button>
+                      <button type='button' style={{backgroundColor:'green'}}>Valider</button>
                     </form>
                 </div>
                 <Video />

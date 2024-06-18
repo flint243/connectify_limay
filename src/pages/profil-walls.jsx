@@ -9,12 +9,17 @@ import ArticlesComponent from '@partials/ArticlesPartialComponent';
 const Walls = () => {
     return (
         <>
+        {/* SECTION HEADER */}
         <HeaderProfil/>
         <NavProfil />
+
+        {/* SECTION MAIN WALLS */}
         <div className='myWall'>
             <div className='titreWall'>
              </div>
             <div className='wallInt'>
+
+                {/* SECTION COMPONENTS */}
             <ArticlesComponent/>
             <ProfilWallComponent />
         </div>

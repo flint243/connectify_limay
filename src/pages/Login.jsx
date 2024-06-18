@@ -1,43 +1,37 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import '@assets/Login.css'
+import Header from '@layouts/Header'
 import NavAccueil from '@layouts/NavAccueil'
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { auth } from "../firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import imgContact from "@assets/recups/contact/fd_contact.jpg";
-import { getUserDocument } from '../services/user';
+import {getFirestore, collection} from 'firebase/firestore';
 
-const SignIn = ({ setUser }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
-  const signInWithEmailAndPasswordHandler = async (event) => {
-    event.preventDefault();
-    setError(null);
-
-    if (email === "" || password === "") {
-        setError("Email et mot de passe sont obligatoires.");
-        return;
-      }
-
-    try {
-        const credentials = await signInWithEmailAndPassword(auth, email, password);
-        const user = await getUserDocument(credentials.user.uid);
-        
-    } catch (error) {
-      if (error.code === 'auth/invalid-credential') {
-        setError("Informations d'identification invalides.");
-      } else if (error.code === 'auth/user-not-found') {
-        setError("Utilisateur non trouvé.");
-      } else if (error.code === 'auth/wrong-password') {
-        setError("Mot de passe incorrect.");
-      } else {
-        setError("Erreur lors de la connexion. Veuillez réessayer.");
-      }
-      console.error("Erreur lors de la connexion", error);
-    }
-  };
+  const handleLogin = async (e) => {
+      e.preventDefault();
+      try {
+          await signInWithEmailAndPassword(auth, email, password);
+          console.log("Connexion réussie");
+        } catch (error) {
+          if (error.code === 'auth/invalid-credential') {
+            setError("Informations d'identification invalides.");
+          } else if (error.code === 'auth/user-not-found') {
+            setError("Utilisateur non trouvé.");
+          } else if (error.code === 'auth/wrong-password') {
+            setError("Mot de passe incorrect.");
+          } else {
+            setError("Erreur lors de la connexion. Veuillez réessayer.");
+          }
+          console.error("Erreur lors de la connexion", error);
+        }
+      };
+  
 
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
@@ -60,7 +54,7 @@ const SignIn = ({ setUser }) => {
           <div className="cadreForm">
           <h1>Connexion</h1>
           {error !== null && <div>{error}</div>}
-          <form className="formulaireLogin">
+          <form  onSubmit={handleLogin} className="formulaireLogin">
             <label htmlFor="userEmail">Email :</label>
             <input
               type="email"
@@ -79,23 +73,19 @@ const SignIn = ({ setUser }) => {
             /> 
             {" "}
             <div className="divBtn">
-            <button className="btnConnect"
-              onClick={(event) =>
-                signInWithEmailAndPasswordHandler(event, email, password)
-              }
-            >
+            <button className="btnConnect">
               Se connecter
             </button>
             </div>
           </form>
           <p>
-            Pas de compte ? <Link to="/Register">Créez en un ici</Link>
+            Pas de compte ? <NavLink to="/Register">Créez en un ici</NavLink>
           </p>
         </div>
       </div>
       </div>
     </>
   );
-};
+}
 
-export default SignIn;
+export default Login;

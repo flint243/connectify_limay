@@ -1,25 +1,36 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import app from "../firebaseConfig";
-import { doc, getDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { initializeApp } from "firebase/app";
+import {getFirestore, collection} from 'firebase/firestore';
 
-export const getUserDocument = async (uid) => {
-    if (!uid) return null;
-  //const userRef = app.doc(`users/${user.uid}`);
-  //const snapshot = await userRef.get();
-      
-      try {
-        const userDocRef = doc(app, 'users', uid);
-        const userDoc = await getDoc(userDocRef);
-        if (userDoc.exists()) {
-          return userDoc.data();
-        } else {
-          console.error('No such document!');
-          return null;
-        }
-      } catch (error) {
-        console.error('Erreur à la récupération de l\'utilisateur', error);
-        throw error;
-      }
-    };
+const app = initializeApp();
+const db = getFirestore(app);
+
+function User() {
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const userCollection = collection(db, 'users');
+                const userSnapshot = await getDocs(userCollection);
+                const userList = userSnapshot.docs.map(doc => doc.data());
+                setUsers(userList);
+            } catch (error) {
+                console.error("Erreur à la récupération de l'utilisateur ", error);
+            }
+        };
+
+        fetchUsers();
+    }, []);
+
+    return (
+        <div>
+            {users.map((user, index) => (
+                <div key={index}>{user.name}</div>
+            ))}
+        </div>
+    );
+}
+
+export default User;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Video = () => {
+const VideoComponent = () => {
     return (
         <div id='video1'>
               <video id="background-video" autoPlay loop muted>
@@ -10,4 +10,4 @@ const Video = () => {
     );
 };
 
-export default Video;
+export default VideoComponent;

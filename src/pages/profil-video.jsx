@@ -6,8 +6,11 @@ import VideoComponent from '@Profils/ProfilVideoComponent';
 const Video = () => {
     return (
         <>
+        {/* SECTION HEADER */}
         <HeaderProfil/>
         <NavProfil />
+
+        {/* SECTION MAIN */}
         <div className='myWall'>
             <div className='wallVideoInt'>
                 <article>
@@ -17,6 +20,8 @@ const Video = () => {
                     <div id='video' className='wallrow'>Video</div>
                     <div id='music' className='wallrow'>Music</div>
                 </article>
+
+                {/* SECTION COMPONENT VIDEO */}
                 <VideoComponent/>
             </div>
         </div>

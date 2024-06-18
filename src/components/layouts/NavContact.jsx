@@ -1,22 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
-import '@assets/Nav.css';
+import '@assets/NavAccueil.css';
 import {FaBars, FaTimes} from 'react-icons/fa'
-import Logo from '@components/LogoComponent'
 
-const NavProfil = () => {
+
+const NavContact = () => {
+    
     const showNavbar = () => {
         navRef.current.classList.toggle("responsive_nav")
     }
     return (
-        <nav className='navGeneral'>
-            <Logo/>
+        <nav className='navContact'>
+            <NavLink to='/'><span id='logo'>Connectify</span> </NavLink>
             <ul>
                 <NavLink to='/profil'><li>Profil</li></NavLink>
-                <NavLink to='/Contact'><li>Contact</li></NavLink>
+                <NavLink to='/contact'
+            ><li>Contact</li></NavLink>
 
-                <NavLink to='/deconnexion'><li>Deconnexion</li></NavLink>
+                <NavLink to='/logOut'><li>Deconnexion</li></NavLink>
                 
             </ul>
             <button className='nav-btn nav-close-btn' onClick={showNavbar}>
@@ -29,4 +31,4 @@ const NavProfil = () => {
     );
 };
 
-export default NavProfil;
+export default NavContact;

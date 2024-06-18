@@ -11,10 +11,15 @@ import ArticlesComponent from '@partials/ArticlesPartialComponent';
 const Principal = () => {
     return (
         <>
+        {/* SECTION HEADER */}
         <NavProfil/>
+
+        {/* COMPONENT SECTION BANNIERE PROFIL */}
         <ProfilComponent/>
             <div className='cadrePrincipal'>
                 <div className='cadreFlex'>
+
+                    {/* SECTION CATEGORIES */}
                     <ArticlesComponent/>
                     <div className="cadreAll">
                         <WallComponent/>
